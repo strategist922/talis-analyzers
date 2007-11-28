@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+* Copyright (c) 2006 Talis Information Ltd.
+* Knights Court,
+* Solihull Parkway,
+* Birmingham Business Park,
+* B37 7YB,
+* UK
+*
+* This software is the confidential and proprietary information of Talis
+* Information Ltd. ("Confidential Information").  You shall not
+* disclose such Confidential Information and shall use it only in
+* accordance with the terms of the license agreement you entered into
+* with Talis.
+*
+*
+* Author: Sam Tunnicliffe
+*
+* Ant build file for Bigfoot HTTP server project
+*     run-tests			: builds the app & test suite (code + test data), then runs the unit tests and acceptance tests (output goes in ./testreports)
+*     make-dist			: runs the test suite, generates the javadoc & builds a distribution 
+-->
+<project basedir="." default="make-dist" name="Bigfoot">
+  <property name="name" value="talis-lucene-analyzers"/>
+  <property name="version" value="1.0.1"/>
+  <property name="build" value="./build"/>
+  <property name="build.app" value="${build}/app"/>
+  <property name="build.tests" value="${build}/tests"/>
+	
+  <!-- Documentation and reports -->
+  <property name="build.docs" value="${build}/doc"/>
+  <property name="reports.junit" value="${build.docs}/reports/junit"/>
+
+  <property name="build.dist" value="${build}/dist"/>
+  <property name="build.dist.lib" value="${build}/dist/lib"/>
+  <property name="dist" value="./dist"/>
+  
+  <property name="dependencies" value="./dependencies"/>
+  <property name="junit4.lib" value="${dependencies}/JUnit-4.1"/>
+  <property name="lucene.lib" value="${dependencies}/lucene-2.1.0"/>
+
+	<!-- Src folders -->
+  <property name="src" value="./src"/>
+  <property name="test.data" value="./test/data"/>
+  <property name="test" value="./test"/>
+  <property name="test.src" value="${test}/src"/>
+	<!-- libs required for build -->
+  <path id="required.libs">
+    <fileset dir="${lucene.lib}">
+      <include name="lucene-*.jar"/>
+    </fileset>
+  </path>
+	
+  <!-- Project Classpath -->
+  <path id="project.classpath">
+    <pathelement location="${build.app}"/>
+    <pathelement location="${build.tests}"/>
+    <path refid="required.libs"/>
+   </path>
+	
+<!-- Test Classpath -->
+  <path id="test.classpath">
+    <path refid="project.classpath"/>
+    <fileset dir="${junit4.lib}">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  
+  <!-- Initialise the variables and directories that are to be used throughout the script. -->
+  <target name="init">
+    <mkdir dir="${build}"/>
+  	<tstamp>
+	  	<format property="build.datetime" pattern="yyyy-MM-dd'T'HH:mm:ssZ"/>
+            <format property="build.datetime.filename" pattern="yyyy_MM_dd'T'HH_mm_ss"/>
+  	</tstamp>
+      <echo message="Fetching repository version from SVN"/>
+      <exec executable="svnversion" spawn="false" dir="${src}" outputproperty="repository.version">
+	   <arg line="."/>
+	</exec>
+    <echo message="safe.repository.version=${repository.version}" file="${build}/svn"/>
+    <echo message="Escaping repository version with regex"/>
+    <replaceregexp file="${build}/svn" match=":" replace="~" byline="true"/>
+    <mkdir dir="${build.dist}"/>
+  </target>
+	
+  <!-- Clean up any temporary files used for the build process -->
+  <target name="clean">
+    <delete includeEmptyDirs="true" quiet="true">
+      <fileset dir="${build}"/>
+    </delete>
+  </target>
+
+  <!-- Set the property that we'll use to build the version file when
+        the build is a manual one (we can tell because if this is an 
+        automated build under cruise control, ${label} will be set 
+        with the build number) 
+  -->
+  <target name="set-manual-build-label" unless="label" depends="init">
+      <property file="${build}/svn"/>
+      <echo message="${safe.repository.version}"/>
+      <property name="build.label" value="${release.version} Development Build (Revision: ${repository.version}  Build Date: ${build.datetime} Build User: ${user.name} Build OS: ${os.name} ${os.version})"/>
+      <property name="build.filename.suffix" value="dev-${release.version}-${safe.repository.version}-${build.datetime.filename}-${user.name}"/>
+      <echo message="${build.filename.suffix}"/>
+   </target>
+   
+   <!-- Set the property that we'll use to build the version file when
+        the build is a manual one (we can tell because if this is an 
+        automated build under cruise control, ${label} will be set 
+        with the build number). In this case, we need to write the
+        label out to a temp file in order to strip the "build." off
+        the front of it
+   -->
+   
+  <!-- Compile all application classes -->
+  <target name="compile-app" depends="init">
+    <echo message="Compiling app code"/>
+    <mkdir dir="${build.app}"/>
+    <javac srcdir="${src}" destdir="${build.app}" encoding="UTF-8"  optimize="on" debug="on" deprecation="on">
+      <classpath refid="project.classpath"/>
+    </javac>
+  </target>
+	
+  <!-- Compile all the unit tests -->
+  <target name="compile-tests" depends="compile-app">
+    <echo message="Compiling tests"/>
+  	<mkdir dir="${build.tests}"/>
+    <javac srcdir="${test.src}" destdir="${build.tests}" encoding="UTF-8" optimize="on" debug="on" deprecation="on">
+    	<classpath refid="test.classpath"/>
+    </javac>
+  </target>
+
+  <!-- Run all the unit test suite -->
+  <target name="run-tests" depends="compile-tests">
+  	<mkdir dir="${reports.junit}"/>
+    <junit printsummary="yes" fork="yes" haltonerror="yes" haltonfailure="yes">
+      <sysproperty key="com.talis.platform.tests.data" value="${test.data}"/>
+      <sysproperty key="file.encoding" value="UTF-8" /> 
+      <classpath refid="test.classpath"/>
+      <formatter type="xml"/>
+      <batchtest haltonfailure="no" todir="${reports.junit}">
+        <fileset dir="${build.tests}">
+          <include name="**/UnitTestSuite*"/>
+        </fileset>
+      </batchtest>
+    </junit>
+  </target>
+
+  <!-- Build Bigfoot jars -->
+  <target name="make-dist" depends="run-tests">
+    <mkdir dir="${build.dist}"/>
+    <jar jarfile="${build.dist}/${name}-${version}.jar" basedir="${build.app}"/>
+  </target>
+</project>
+
