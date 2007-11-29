@@ -15,8 +15,8 @@ public class NormaliseStandardAnalyzer extends Analyzer  {
 	public TokenStream tokenStream(String arg0, Reader reader) {
 		TokenStream result = new StandardTokenizer(reader);
 		result = new StandardFilter(result);
-		result = new LowerCaseFilter(result);
 		result = new ISOLatin1AccentFilter(result);
+		result = new LowerCaseFilter(result);
 		return result;
 	}
 
