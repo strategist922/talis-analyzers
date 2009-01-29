@@ -319,7 +319,7 @@
 </target>
 
 <!-- Build jar -->
-<target name="make-dist" depends="unit-tests, set-dev-build-label">
+<target name="make-dist" depends="unit-tests, set-dev-build-label, jarfile">
 <mkdir dir="${build.dist}" />
 <jar jarfile="${build.dist}/${name}-${version}.jar" basedir="${build.app}" />
 </target>
