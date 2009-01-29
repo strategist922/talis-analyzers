@@ -281,15 +281,15 @@
 <!-- Build jar -->
 <target name="jarfile" depends="compile-app">
 <mkdir dir="${build.jars}" />
-<jar jarfile="${build.jars}/${name}-${build.filename.suffix}.jar" basedir="${build.app}" />
+<jar jarfile="${build.jars}/${name}.jar" basedir="${build.app}" />
 </target>
 
-<!-- make a new distribution and check it into svn -->
-<!--target name="make-release" depends="make-dist"-->
 
 	<property name="svn.repo.url" value="http://mrpotatohead.talis.local/svn-repos/Components/java/LuceneAnalyzers" />
 	<property name="distro.url" value="${svn.repo.url}/dist" />
+	<!-- make a new distribution and check it into svn -->
 
+<!-- make a new distro and check it in to svn -->	
 <target name="make-release" depends="set-release-build-label, make-dist">
 
 <!-- Check that the working copy is up to date etc -->
@@ -320,9 +320,10 @@
 </target>
 
 <!-- Build jar -->
-<target name="make-dist" depends="unit-tests, set-dev-build-label, jarfile">
-<mkdir dir="${build.dist}" />
-<jar jarfile="${build.dist}/${name}-${version}.jar" basedir="${build.app}" />
+<target name="make-dist" depends="unit-tests, set-dev-build-label, jarfile, javadoc, cobertura">
+	<mkdir dir="${build.dist}" />
+	<!-- Create the correct directory structure for a dist -->
+  	<copy file="${build.jars}/${name}.jar" tofile="${build.dist}/lib/${name}-${build.filename.suffix}.jar"/>
 </target>
 </project>
 
