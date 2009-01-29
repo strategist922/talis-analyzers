@@ -311,7 +311,7 @@
 <copy todir="${build.dist}/${build.filename.suffix}/doc">
 	<fileset dir="${build.docs}" />
 </copy>
-<copy file="${build.dist}/lib/${name}-${build.filename.suffix}.jar" todir="${build.dist}/${name}-${build.filename.suffix}/lib" />
+<copy file="${build.dist}/lib/${name}-${build.filename.suffix}.jar" todir="${build.dist}/${build.filename.suffix}/lib" />
 
 <taskdef name="svn" classpathref="svnant.classpath" classname="org.tigris.subversion.svnant.SvnTask" />
 <svn>
