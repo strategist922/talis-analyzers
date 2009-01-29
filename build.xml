@@ -266,24 +266,6 @@
 		</junit>
 	</target>
 
-
-
-	<!-- Run all the unit test suite -->
-	<!--target name="run-tests" depends="compile-tests">
-		<mkdir dir="${reports.junit}"/>
-		<junit printsummary="yes" fork="yes" haltonerror="yes" haltonfailure="yes">
-			<sysproperty key="com.talis.platform.tests.data" value="${test.data}"/>
-			<sysproperty key="file.encoding" value="UTF-8" />
-			<classpath refid="test.classpath"/>
-			<formatter type="xml"/>
-			<batchtest haltonfailure="no" todir="${reports.junit}">
-				<fileset dir="${build.tests}">
-					<include name="**/UnitTestSuite*"/>
-				</fileset>
-			</batchtest>
-		</junit>
-	</target-->
-
 	<!-- Generate all javadoc -->
 	<target name="javadoc" depends="jarfile">
 		<mkdir dir="${build.javadoc}" />
@@ -298,15 +280,8 @@
 <!-- Build jar -->
 <target name="jarfile" depends="compile-app">
 <mkdir dir="${build.jars}" />
-<jar jarfile="${build.jars}/${name}.jar" basedir="${build.app}" />
+<jar jarfile="${build.jars}/${name}-${build.filename.suffix}.jar" basedir="${build.app}" />
 </target>
-
-<!-- Create the correct directory structure for a dist -->
-<!--target name="make-dist" depends="clean, unit-tests, javadoc, cobertura">
-<copy file="${build.jars}/${name}.jar" tofile="${build.dist}/lib/${name}-${version}.jar" />
-
-</target-->
-
 
 <!-- make a new distribution and check it into svn -->
 <!--target name="make-release" depends="make-dist"-->
