@@ -29,6 +29,7 @@
 	<property name="build.app" value="${build}/app" />
 	<property name="build.tests" value="${build}/tests" />
   <property name="build.cobertura" value="${build}/cobertura"/>
+	<property name="build.jars" value="${build}/jars" />
 
 	<!-- Documentation and reports -->
 	<property name="build.docs" value="${build}/doc" />
@@ -272,7 +273,7 @@
 		<javadoc packagenames="com.talis.*" sourcepath="${src}" defaultexcludes="yes" destdir="${build.javadoc}" author="true" version="true" use="true" windowtitle="Talis Lucene Analyzers API Documentation" classpathref="test.classpath">
 			<doctitle>
 				<![CDATA[<h1>Talis Lucene Analyzers API Documentation</h1>]]></doctitle>
-		<bottom>
+		<bottom>-${build.filename.suffix}
 			<![CDATA[<i>Copyright &#169; 2007 Talis Information Ltd. All Rights Reserved.</i>]]></bottom>
 </javadoc>
 </target>
