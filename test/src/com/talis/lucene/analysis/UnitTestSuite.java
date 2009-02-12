@@ -40,6 +40,8 @@ public class UnitTestSuite {
     
     suite.addTest( NoStopwordStandardAnalyzerTest.suite() );
     suite.addTest( NormaliseStandardAnalyzerTest.suite() );
+    suite.addTest( PorterStemmingNormalisedEnAnalyzerTest.suite() );
+    suite.addTest( PorterStemmingNormalisedEnNoStopAnalyzerTest.suite() );
     return suite;
     
   }
