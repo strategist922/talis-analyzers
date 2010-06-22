@@ -50,7 +50,7 @@
 
 	<property name="dependencies" value="./dependencies" />
 	<property name="junit4.lib" value="${dependencies}/JUnit-4.1" />
-	<property name="lucene.lib" value="${dependencies}/lucene-2.1.0" />
+	<property name="lucene.lib" value="${dependencies}/lucene-2.9.1" />
 	<property name="cobertura-1.8.lib" value="${dependencies}/cobertura-1.8"/>
 	<property name="svnant.lib" value="${dependencies}/svnant-1.0.0"/>
 
