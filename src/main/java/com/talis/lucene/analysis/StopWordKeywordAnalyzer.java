@@ -25,10 +25,6 @@ public class StopWordKeywordAnalyzer extends KeywordAnalyzer {
 
 	private static String[] STOP_WORDS = StopAnalyzer.ENGLISH_STOP_WORDS;
 	
-	public StopWordKeywordAnalyzer() {
-		super();
-	}
-	
 	@Override
 	public TokenStream tokenStream(String fieldName, Reader reader) {
 		TokenStream result = new KeywordTokenizer(reader);
