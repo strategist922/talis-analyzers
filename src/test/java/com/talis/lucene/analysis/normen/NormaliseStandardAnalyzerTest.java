@@ -1,28 +1,17 @@
 package com.talis.lucene.analysis.normen;
 
-import java.io.StringReader;
-import org.apache.lucene.analysis.*;
-import org.junit.Test;
-
+import static com.talis.lucene.analysis.Utils.assertAnalyzesTo;
 import junit.framework.JUnit4TestAdapter;
-import static junit.framework.Assert.*;
+
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.StopAnalyzer;
+import org.junit.Test;
 
 public class NormaliseStandardAnalyzerTest {
 
 	  public static junit.framework.Test suite()
 	  {
 	    return new JUnit4TestAdapter(NormaliseStandardAnalyzerTest.class);
-	  }
-
-	  public void assertAnalyzesTo(Analyzer a, String input, String[] expected) throws Exception {
-	    TokenStream ts = a.tokenStream("dummy", new StringReader(input));
-	    for (int i = 0; i < expected.length; i++) {
-	      Token t = ts.next();
-	      assertNotNull(t);
-	      assertEquals(expected[i], t.termText());
-	    }
-	    assertNull(ts.next());
-	    ts.close();
 	  }
 
 	  @Test

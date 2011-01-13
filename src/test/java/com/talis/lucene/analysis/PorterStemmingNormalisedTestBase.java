@@ -1,21 +1,14 @@
 package com.talis.lucene.analysis;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertNull;
+import static com.talis.lucene.analysis.Utils.assertAnalyzesTo;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.StopAnalyzer;
-import org.apache.lucene.analysis.Token;
-import org.apache.lucene.analysis.TokenStream;
 import org.junit.Test;
 
 public abstract class PorterStemmingNormalisedTestBase {
@@ -28,8 +21,8 @@ public abstract class PorterStemmingNormalisedTestBase {
 		  List<String> stopList = getStopList();
 		  Analyzer analyzer = getAnalyzer();
 		  
-		  File input = new File("./test/data/porter-stemming-input.txt");
-		  File output = new File("./test/data/porter-stemming-output.txt");
+		  File input = new File("./src/test/resources/data/porter-stemming-input.txt");
+		  File output = new File("./src/test/resources/data/porter-stemming-output.txt");
 		  
 		  BufferedReader inputReader = new BufferedReader(
 				  							new InputStreamReader(
@@ -52,16 +45,5 @@ public abstract class PorterStemmingNormalisedTestBase {
 		  String in = "l'ecole";
 		  assertAnalyzesTo(getAnalyzer(), in, "l", "ecol");
 	  }
-	  
-	  public void assertAnalyzesTo(Analyzer a, String input, String... expected) throws Exception {
-		    TokenStream ts = a.tokenStream("dummy", new StringReader(input));
-		    for (int i = 0; i < expected.length; i++) {
-		      Token t = ts.next();
-		      assertNotNull(t);
-		      assertEquals(expected[i], t.termText());
-		    }
-		    assertNull(ts.next());
-		    ts.close();
-	  }
-	
+
 }
