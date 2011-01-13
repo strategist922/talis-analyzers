@@ -10,7 +10,7 @@
 
   <groupId>com.talis</groupId>
   <artifactId>talis-analyzers</artifactId>
-  <version>1.3.0-SNAPSHOT</version>
+  <version>1.3.0</version>
   <packaging>jar</packaging>
 
   <name>Talis Lucene Analyzers</name>
@@ -113,9 +113,9 @@
   </reporting>
 
   <scm>
-    <connection>scm:svn:http://mrpotatohead.talis.local/svn-repos/Components/java/LuceneAnalyzers/trunk</connection>
-    <developerConnection>scm:svn:http://mrpotatohead.talis.local/svn-repos/Components/java/LuceneAnalyzers/trunk</developerConnection>
-    <url>http://mrpotatohead.talis.local/svn-repos/Components/java/LuceneAnalyzers/</url>
+    <connection>scm:svn:http://mrpotatohead.talis.local/svn-repos/Components/java/LuceneAnalyzers/tags/talis-analyzers-1.3.0</connection>
+    <developerConnection>scm:svn:http://mrpotatohead.talis.local/svn-repos/Components/java/LuceneAnalyzers/tags/talis-analyzers-1.3.0</developerConnection>
+    <url>http://mrpotatohead.talis.local/svn-repos/Components/java/LuceneAnalyzers/tags/talis-analyzers-1.3.0</url>
   </scm>
 
   <issueManagement>
