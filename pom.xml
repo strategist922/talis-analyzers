@@ -131,4 +131,15 @@
     <developer><id>pc</id><name>Paolo Castagna</name><roles><role>developer</role></roles><timezone>+1</timezone></developer>
   </developers>
 
+  <repositories>
+    <repository>
+      <id>talis-repo</id>
+      <url>http://locke.talis.local/nexus/content/repositories/releases</url>
+    </repository>
+    <repository>
+      <id>talis-repo-dev</id>
+      <url>http://locke.talis.local/nexus/content/repositories/snapshots</url>
+    </repository>
+  </repositories>
+
 </project>
