@@ -5,7 +5,7 @@
   <parent>
     <groupId>com.talis</groupId>
     <artifactId>talis-pom</artifactId>
-    <version>1</version>
+    <version>2.1</version>
   </parent>
 
   <groupId>com.talis</groupId>
@@ -14,7 +14,7 @@
   <packaging>jar</packaging>
 
   <name>Talis Lucene Analyzers</name>
-  <url>http://mrpotatohead.talis.local/svn-repos/Components/java/LuceneAnalyzers/</url>
+  <url>http://github.com/talis/talis-analyzers</url>
   <inceptionYear>2008</inceptionYear>
   <description>Talis Lucene Analyzers</description>
 
@@ -113,9 +113,9 @@
   </reporting>
 
   <scm>
-    <connection>scm:svn:http://mrpotatohead.talis.local/svn-repos/Components/java/LuceneAnalyzers/trunk</connection>
-    <developerConnection>scm:svn:http://mrpotatohead.talis.local/svn-repos/Components/java/LuceneAnalyzers/trunk</developerConnection>
-    <url>http://mrpotatohead.talis.local/svn-repos/Components/java/LuceneAnalyzers/</url>
+    <connection>scm:git:git://github.com/talis/talis-analyzers.git</connection>
+    <developerConnection>scm:git:git://github.com/talis/talis-analyzers.git</developerConnection>
+    <url>https://github.com/talis/talis-analyzers/</url>
   </scm>
 
   <issueManagement>
@@ -133,12 +133,12 @@
 
   <repositories>
     <repository>
-      <id>talis-repo</id>
-      <url>http://locke.talis.local/nexus/content/repositories/releases</url>
+      <id>talis-public-repo</id>
+      <url>http://oss.talisplatform.com/content/groups/public/</url>
     </repository>
     <repository>
-      <id>talis-repo-dev</id>
-      <url>http://locke.talis.local/nexus/content/repositories/snapshots</url>
+      <id>talis-internal-repo</id>
+      <url>http://nexus.talisplatform.com/content/groups/internal/</url>
     </repository>
   </repositories>
 
